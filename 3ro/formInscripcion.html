@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Inscripción</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #34495e;
+            color: #ecf0f1;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        nav ul {
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav ul li a:hover {
+            color: #1abc9c;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container-custom {
+            width: 90%;
+            max-width: 900px;
+            background-color: #34495e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin: 20px auto;
+        }
+        h1, h2 {
+            color: #1abc9c;
+            text-align: center;
+        }
+        .form-control {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border: 1px solid #1abc9c;
+        }
+        .form-control:focus {
+            border-color: #1abc9c;
+            box-shadow: none;
+        }
+        .btn-primary {
+            background-color: #1abc9c;
+            border-color: #1abc9c;
+        }
+        .btn-primary:hover {
+            background-color: #16a085;
+            border-color: #16a085;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            border-color: #95a5a6;
+        }
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+            border-color: #7f8c8d;
+        }
+        .btn-warning {
+            background-color: #f39c12;
+            border-color: #f39c12;
+        }
+        .btn-warning:hover {
+            background-color: #e67e22;
+            border-color: #e67e22;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div id="branding">
+            CENTRO DE ESPECTÁCULOS Y DEPORTIVO IMPECSA
+        </div>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Curriculum.html">Curriculum</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="QuienesSomos.html">Quiénes Somos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Productos.html">Productos</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<script>
+    function addEvent(ele, eve, fun, cap) {
+            if (window.attachEvent) {
+                ele.attachEvent('on' + eve, fun); 
+            } else {
+                ele.addEventListener(eve, fun, cap); 
+            }
+        }
+
+        function cargar() {
+            console.log("La página ha cargado correctamente.");
+        }
+    function actualizarPrecio() {
+        let precios = {
+            "Fútbol": { "1": 180, "3": 420, "6": 750 },
+            "Baloncesto": { "1": 250, "3": 600, "6": 900 },
+            "Danza aérea": { "1": 350, "3": 700, "6": 1100 },
+            "Lucha libre": { "1": 270, "3": 450, "6": 620 },
+            "Boxéo": { "1": 300, "3": 750, "6": 1000 },
+            "Voleibol": { "1": 200, "3": 550, "6": 1000 }
+        };
+
+        let deporte = document.getElementById("deporte").value;
+        let duracion = document.getElementById("duracion").value;
+        let precio = precios[deporte][duracion];
+
+        document.getElementById("precio").value = precio;
+    }
+
+    function validarFormulario() {
+        let deporte = document.getElementById("deporte").value;
+        let duracion = document.getElementById("duracion").value;
+        let precio = document.getElementById("precio").value;
+
+        if (deporte === "" || duracion === "" || precio === "") {
+            alert("Por favor, seleccione un deporte y duración válidos.");
+            return false;
+        }
+
+        $.ajax({
+            url: 'insertarinscripcion.php',
+            type: 'POST',
+            data: {
+                deporte: deporte,
+                duracion: duracion,
+                precio: precio
+            },
+            success: function(response) {
+                if (response === "ok") {
+                    document.getElementById("formulario").submit(); 
+                } else {
+                    alert("Hubo un problema al validar los datos: " + response);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Error en la validación. Inténtalo de nuevo.");
+            }
+        });
+
+        return false; // Evita que el formulario se envíe hasta que la validación se complete
+    }
+</script>
+</head>
+<body style="background-color: #2c3e50; color: #ecf0f1;">
+<div class="container mt-4" style="background-color: #34495e; padding: 20px; border-radius: 10px;">
+    <h1>Inscripción a Deportes</h1>
+
+    <!-- Formulario de Inscripción -->
+    <form id="formulario" action="insertarInscripcion.php" method="post" onsubmit="return validarFormulario()">
+        <div class="form-group">
+            <label for="deporte">Deporte</label>
+            <select class="form-control" id="deporte" name="deporte" onchange="actualizarPrecio()" required>
+                <option value="Fútbol">Fútbol soccer</option>
+                <option value="Baloncesto">Baloncesto</option>
+                <option value="Danza aérea">Danza aérea</option>
+                <option value="Lucha libre">Lucha libre</option>
+                <option value="Boxéo">Boxéo</option>
+                <option value="Voleibol">Voleibol</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="duracion">Duración (meses)</label>
+            <select class="form-control" id="duracion" name="duracion" onchange="actualizarPrecio()" required>
+                <option value="1">1 mes</option>
+                <option value="3">3 meses</option>
+                <option value="6">6 meses</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="precio">Precio</label>
+            <input type="text" class="form-control" id="precio" name="precio" readonly required>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="reset" class="btn btn-secondary">Limpiar</button>
+        <a href="formularios.html" class="btn btn-secondary">Regresar</a>
+    </form>
+</div>
+
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <p>Impecsa &copy; 2024</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

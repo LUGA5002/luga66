@@ -1,0 +1,123 @@
+create database centroimpecsa;
+
+use centroimpecsa;
+
+
+ Create table empleado (
+     id int not null primary key,
+     nombre varchar(100) not null,
+     cargo varchar (100) not null);
+
+
+CREATE TABLE administrador (
+    id INT(10) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    telefono VARCHAR(15) NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id));
+
+CREATE TABLE cliente (
+    id INT(10) AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    edad INT(3) NOT NULL,
+    sexo ENUM('M', 'F') NOT NULL,
+    telefono VARCHAR(15) NOT NULL,
+    correo VARCHAR(100) NOT NULL);
+
+
+Create table Producto (
+     id int not null primary key,
+     nombre varchar (50) not null,
+     precio int null,
+     descripcion varchar (255) not null);
+    
+
+CREATE TABLE inventario (
+    id_producto VARCHAR(10) PRIMARY KEY,
+    nombre_producto VARCHAR(255) NOT NULL,
+    cantidad INT NOT NULL);
+
+CREATE TABLE almacen (
+    id_inventario VARCHAR(10) PRIMARY KEY,
+    nombre_producto VARCHAR(255) NOT NULL,
+    cantidad INT NOT NULL);
+
+CREATE TABLE materiales (
+id_material VARCHAR(10) PRIMARY KEY,
+nombre_material VARCHAR(255) NOT NULL,
+cantidad INT NOT NULL,
+disponible ENUM('si', 'no') NOT NULL);
+
+CREATE TABLE inscripciones (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    duracion VARCHAR(255) NOT NULL,
+    deporte VARCHAR(255) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL);
+
+CREATE TABLE pago (
+    id_cliente VARCHAR(10) PRIMARY KEY,
+    precio DECIMAL(10,2) NOT NULL,
+    concepto VARCHAR(100) NOT NULL,
+    duracion VARCHAR(50) NOT NULL);
+
+
+mysql> CREATE TABLE deporte (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    deporte VARCHAR(255) NOT NULL,
+    duracion VARCHAR(255) NOT NULL,
+    cancha VARCHAR(255) NOT NULL,
+    id_empleado INT NOT NULL,
+    id_cliente INT NOT NULL);
+
+
+mysql> CREATE TABLE proveedor (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_inventario INT NOT NULL,
+    producto VARCHAR(255) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    id_empleado INT NOT NULL);
+
+
+mysql> CREATE TABLE servicio (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_empleado INT NOT NULL,
+    deporte VARCHAR(50) NOT NULL,
+    duracion VARCHAR(50) NOT NULL,
+    costo DECIMAL(10, 2) NOT NULL,
+    descripcion TEXT NOT NULL);
+
+
+ create table usuarios(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) NOT NULL UNIQUE,
+    contrasena VARCHAR(64) NOT NULL,  -- Se ajusta para almacenar contraseñas SHA-256
+    nombre VARCHAR(100) NOT NULL,
+    telefono VARCHAR(15));
+
+CREATE TABLE contacto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    mensaje TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+CREATE TABLE pagos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255) NOT NULL,
+  correo VARCHAR(255) NOT NULL,
+  direccion VARCHAR(255) NOT NULL,
+  metodo_pago VARCHAR(50) NOT NULL,
+  total DECIMAL(10, 2) NOT NULL,
+   fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+ CREATE TABLE compras (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto VARCHAR(255),
+    precio DECIMAL(10,2),
+    cantidad INT,
+    total DECIMAL(10,2),
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+     );
+
+
+

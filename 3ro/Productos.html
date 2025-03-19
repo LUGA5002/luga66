@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos Deportivos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        .card {
+            background-color: #34495e;
+            color: #ecf0f1;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card-body {
+            text-align: center;
+        }
+        .btn-success {
+            background-color: #3498db;
+            border: none;
+        }
+        .btn-success:hover {
+            background-color: #2980b9;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            border: none;
+        }
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center">Productos Deportivos</h2>
+
+    <div class="row">
+        <!-- Producto 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Balón de Baloncesto</h5>
+                    <p><strong>Precio:</strong> $29.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Balón de Baloncesto" data-precio="29.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Balón de Voleibol</h5>
+                    <p><strong>Precio:</strong> $24.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Balón de Voleibol" data-precio="24.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Guantes de Boxeo</h5>
+                    <p><strong>Precio:</strong> $39.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Guantes de Boxeo" data-precio="39.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 4 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Raqueta de Tenis</h5>
+                    <p><strong>Precio:</strong> $49.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Raqueta de Tenis" data-precio="49.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 5 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tobillera Deportiva</h5>
+                    <p><strong>Precio:</strong> $14.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Tobillera Deportiva" data-precio="14.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 6 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Cuerda para Saltar</h5>
+                    <p><strong>Precio:</strong> $9.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Cuerda para Saltar" data-precio="9.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 7 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Pelota de Fútbol</h5>
+                    <p><strong>Precio:</strong> $22.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Pelota de Fútbol" data-precio="22.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 8 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Mancuernas</h5>
+                    <p><strong>Precio:</strong> $59.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Mancuernas" data-precio="59.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 9 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Colchoneta para Yoga</h5>
+                    <p><strong>Precio:</strong> $19.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Colchoneta para Yoga" data-precio="19.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 10 -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Camiseta Deportiva</h5>
+                    <p><strong>Precio:</strong> $15.99</p>
+                    <button class="btn btn-success agregar-carrito" data-nombre="Camiseta Deportiva" data-precio="15.99">Añadir al Carrito</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="carrito.html" class="btn btn-primary">Ver Carrito</a>
+        <a href="index.php" class="btn btn-secondary">Regresar al Inicio</a>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.agregar-carrito').forEach(button => {
+        button.addEventListener('click', () => {
+            let producto = {
+                nombre: button.dataset.nombre,
+                precio: parseFloat(button.dataset.precio),
+                cantidad: 1
+            };
+
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            let index = carrito.findIndex(p => p.nombre === producto.nombre);
+
+            if (index !== -1) {
+                carrito[index].cantidad++;
+            } else {
+                carrito.push(producto);
+            }
+
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            alert('Producto añadido al carrito.');
+        });
+    });
+</script>
+
+</body>
+</html>

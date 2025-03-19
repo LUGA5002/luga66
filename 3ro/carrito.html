@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center">Carrito de Compras</h2>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="carrito-body"></tbody>
+    </table>
+
+    <h4>Total: $<span id="total"></span></h4>
+
+    <form id="finalizar-compra-form">
+        <input type="hidden" name="carrito" id="carrito-input">
+        <button type="submit" class="btn btn-success">Finalizar Compra</button>
+    </form>
+
+    <a href="Productos.html" class="btn btn-secondary mt-3">Seguir Comprando</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let tbody = document.getElementById('carrito-body');
+    let total = 0;
+
+    // Función para actualizar el carrito y mostrar el total
+    function actualizarCarrito() {
+        tbody.innerHTML = '';
+        total = 0;
+
+        carrito.forEach((producto, index) => {
+            let tr = document.createElement('tr');
+            let totalProducto = producto.precio * producto.cantidad;
+            total += totalProducto;
+
+            tr.innerHTML = `
+                <td>${producto.nombre}</td>
+                <td>$${producto.precio.toFixed(2)}</td>
+                <td>${producto.cantidad}</td>
+                <td>$${totalProducto.toFixed(2)}</td>
+                <td><button class="btn btn-danger eliminar" data-index="${index}">Eliminar</button></td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+
+        document.getElementById('total').textContent = total.toFixed(2);
+        document.getElementById('carrito-input').value = JSON.stringify(carrito);
+    }
+
+    // Eliminar producto del carrito
+    document.addEventListener('click', (event) => {
+        if (event.target.classList.contains('eliminar')) {
+            let index = event.target.dataset.index;
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarCarrito();
+        }
+    });
+
+    // Validar y enviar el formulario del carrito con AJAX
+    document.getElementById('finalizar-compra-form').addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevenir el envío del formulario
+
+        // Validación: verificar si el carrito está vacío
+        if (carrito.length === 0) {
+            alert('El carrito está vacío. Agrega productos antes de proceder.');
+            return;
+        }
+
+        // Validación: comprobar que todas las cantidades sean mayores que 0
+        for (let producto of carrito) {
+            if (producto.cantidad < 1) {
+                alert('La cantidad de los productos no puede ser menor que 1.');
+                return;
+            }
+        }
+
+        // Enviar el carrito al servidor mediante AJAX
+        $.ajax({
+            url: 'validarCompra.php', // Aquí iría la URL de validación en el servidor
+            type: 'POST',
+            data: {
+                carrito: JSON.stringify(carrito)
+            },
+            success: function(response) {
+                // Suponiendo que el servidor devuelve 'ok' si todo está bien
+                if (response === 'ok') {
+                    alert('Compra realizada con éxito');
+                } else {
+                    alert('Hubo un error al procesar tu compra: ' + response);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Error en la validación. Intenta nuevamente.');
+            }
+        });
+    });
+
+    actualizarCarrito();
+</script>
+
+</body>
+</html>
